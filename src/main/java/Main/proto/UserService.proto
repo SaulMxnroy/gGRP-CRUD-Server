@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "Main.proto";
+
+message userProto {
+    int32 userId = 1;
+    string firstName = 2;
+    string lastName = 3;
+    string email = 4;
+    string password = 5;
+}
+
+message userRequest {
+    string firstName = 1;
+    string lastName = 2;
+    string email = 3;
+    string password = 4;
+}
+
+message UserRequestId {
+    string userId = 1;
+}
+
+message OperationalStatusProto{
+    string operationResult = 1;
+    string operationName = 2;
+}
+
+message UserUpdate{
+    string userId = 1;
+    userRequest userDetails = 2;
+}
+
+message UserRestProtoColl{
+    repeated userProto user_rest_protos = 1;
+}
+
+message UserListLimit{
+    int32 page = 1;
+    int32 limit = 2;
+}
+
+
+service CRUDService {
+    rpc readUser(UserRequestId) returns (userProto);
+    rpc createUSer(userRequest) returns (userProto);
+    rpc updateUSer(UserUpdate) returns (userProto);
+    rpc deleteUser(UserRequestId) returns (OperationalStatusProto);
+    rpc readListUser(UserListLimit) returns (UserRestProtoColl);
+
+
+}
